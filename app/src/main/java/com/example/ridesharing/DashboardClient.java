@@ -1,18 +1,14 @@
 package com.example.ridesharing;
 
 import android.Manifest;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
-import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.MotionEvent;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -55,7 +51,7 @@ public class DashboardClient extends AppCompatActivity {
 
     private MapView map;
     private EditText searchEdit,ownLocationEditText;
-    private Button searchBtn,requestBtn;
+    private Button requestBtn;
     private FusedLocationProviderClient fusedLocationClient;
     private String currentRequestId;
 
@@ -75,7 +71,7 @@ public class DashboardClient extends AppCompatActivity {
 
         map = findViewById(R.id.map);
         searchEdit = findViewById(R.id.destination);
-        searchBtn = findViewById(R.id.searchBtn);
+        Button searchBtn = findViewById(R.id.searchBtn);
         ownLocationEditText = findViewById(R.id.ownLocation);
         requestBtn = findViewById(R.id.requestBtn);
 
@@ -201,7 +197,6 @@ public class DashboardClient extends AppCompatActivity {
                     );
                 }
             } catch (Exception e) {
-                e.printStackTrace();
                 runOnUiThread(() ->
                         Toast.makeText(this, "Error during search", Toast.LENGTH_SHORT).show()
                 );
@@ -240,7 +235,6 @@ public class DashboardClient extends AppCompatActivity {
                 ownLocationEditText.setText(address);
             }
         } catch (IOException e) {
-            e.printStackTrace();
             Toast.makeText(this, "Failed to get address", Toast.LENGTH_SHORT).show();
         }
     }
@@ -248,6 +242,7 @@ public class DashboardClient extends AppCompatActivity {
     private void sendRideRequestToFirebase(String pickup, String destination) {
         String phone = getIntent().getStringExtra("phone");
 
+        assert phone != null;
         DatabaseReference userRef = FirebaseDatabase.getInstance()
                 .getReference("users")
                 .child(phone);
@@ -329,26 +324,18 @@ public class DashboardClient extends AppCompatActivity {
         }
         builder.setTitle(titleString);
         builder.setMessage(messageString);
-        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                if (button_id == R.id.logout) {
-                    Intent intent = new Intent(DashboardClient.this, Index.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    startActivity(intent);
-                    finish();
-                } else {
-                    finish();
-                }
+        builder.setPositiveButton("Yes", (dialogInterface, i) -> {
+            if (button_id == R.id.logout) {
+                Intent intent = new Intent(DashboardClient.this, Index.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+                finish();
+            } else {
+                finish();
+            }
 
-            }
         });
-        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                dialogInterface.cancel();
-            }
-        });
+        builder.setNegativeButton("No", (dialogInterface, i) -> dialogInterface.cancel());
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
     }
