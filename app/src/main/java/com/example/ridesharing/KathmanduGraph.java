@@ -1,10 +1,10 @@
 package com.example.ridesharing;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.location.Address;
 import android.location.Geocoder;
 import android.util.Log;
-import org.osmdroid.util.GeoPoint;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -50,14 +50,14 @@ public class KathmanduGraph {
     }
 
     public static Map<Long, GraphNode> nodes = new HashMap<>();
+    @SuppressLint("StaticFieldLeak")
     private static Context context;
     public boolean isLoaded = false;
 
-    private List<GraphNode> nodeList = new ArrayList<>();
-    private Map<String, List<GraphNode>> spatialGrid = new HashMap<>();
-    private double gridSize = 0.002;
+    private final List<GraphNode> nodeList = new ArrayList<>();
+    private final Map<String, List<GraphNode>> spatialGrid = new HashMap<>();
 
-    public KathmanduGraph(Context context) { this.context = context; }
+    public KathmanduGraph(Context context) { KathmanduGraph.context = context; }
 
     public void loadGraphFromJSON(GraphLoadCallback callback) {
         new Thread(() -> {
@@ -211,13 +211,7 @@ public class KathmanduGraph {
 
     private void removeNodeFromNeighbors(GraphNode nodeToRemove) {
         for (GraphNode node : nodes.values()) {
-            Iterator<GraphEdge> iterator = node.neighbors.iterator();
-            while (iterator.hasNext()) {
-                GraphEdge edge = iterator.next();
-                if (edge.target.id == nodeToRemove.id) {
-                    iterator.remove();
-                }
-            }
+            node.neighbors.removeIf(edge -> edge.target.id == nodeToRemove.id);
         }
     }
 
@@ -228,11 +222,12 @@ public class KathmanduGraph {
             if (!spatialGrid.containsKey(gridKey)) {
                 spatialGrid.put(gridKey, new ArrayList<>());
             }
-            spatialGrid.get(gridKey).add(node);
+            Objects.requireNonNull(spatialGrid.get(gridKey)).add(node);
         }
     }
 
     private String getGridKey(double lat, double lon) {
+        double gridSize = 0.002;
         int latIndex = (int) (lat / gridSize);
         int lonIndex = (int) (lon / gridSize);
         return latIndex + "," + lonIndex;

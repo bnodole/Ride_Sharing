@@ -8,4 +8,11 @@
     <string name="driver">Driver</string>
     <string name="register">Register</string>
     <string name="phone_number">Phone Number</string>
+    <string name="pofile_picture">Pofile Picture</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="login">Login</string>
+    <string name="destination">Destination</string>
+    <string name="own_location">Own Location</string>
+    <string name="search">Search</string>
+    <string name="request_ride">Request Ride</string>
 </resources>

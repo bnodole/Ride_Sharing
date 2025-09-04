@@ -7,8 +7,6 @@ public class RideRequest {
     public String name;
     public long timestamp;
 
-    public RideRequest() {
-    }
 
     public RideRequest(String pickup, String destination, String status, String name, long timestamp) {
         this.pickup = pickup;
