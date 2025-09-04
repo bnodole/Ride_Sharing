@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="24dp">
@@ -16,7 +15,8 @@
             android:id="@+id/etName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Full Name"
+            android:autofillHints=""
+            android:hint="@string/full_name"
             android:inputType="textPersonName"
             android:padding="12dp"
             android:layout_marginBottom="16dp"/>
@@ -26,7 +26,8 @@
             android:id="@+id/etPhone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Phone Number"
+            android:autofillHints=""
+            android:hint="@string/phone_number"
             android:inputType="phone"
             android:padding="12dp"
             android:layout_marginBottom="16dp"/>
@@ -36,7 +37,8 @@
             android:id="@+id/etPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Password"
+            android:autofillHints=""
+            android:hint="@string/password"
             android:inputType="textPassword"
             android:padding="12dp"
             android:layout_marginBottom="16dp"/>
@@ -46,7 +48,8 @@
             android:id="@+id/etConfirmPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Confirm Password"
+            android:autofillHints=""
+            android:hint="@string/confirm_password"
             android:inputType="textPassword"
             android:padding="12dp"
             android:layout_marginBottom="24dp"/>
@@ -64,14 +67,14 @@
                 android:id="@+id/radioClient"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Client"
+                android:text="@string/client"
                 android:checked="true"/>
 
             <RadioButton
                 android:id="@+id/radioDriver"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Driver"
+                android:text="@string/driver"
                 android:layout_marginStart="32dp"/>
         </RadioGroup>
 
@@ -80,7 +83,7 @@
             android:id="@+id/btnRegister"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:text="Register"
+            android:text="@string/register"
             android:padding="12dp"
             android:backgroundTint="@color/black"/>
 

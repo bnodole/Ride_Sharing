@@ -1,4 +1,11 @@
 <resources>
     <string name="app_name">RideSharing</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="full_name">Full Name</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="client">Client</string>
+    <string name="driver">Driver</string>
+    <string name="register">Register</string>
+    <string name="phone_number">Phone Number</string>
 </resources>
